@@ -16,13 +16,13 @@ import {
   MessageSquare,
   ArrowRight
 } from 'lucide-react';
-
+import { useNavigate } from 'react-router-dom';
 const MyBookingsPage = () => {
   const [activeTab, setActiveTab] = useState('All');
 
   // Danh sách các tab trạng thái
   const tabs = ['All', 'Pending', 'Confirmed', 'Completed', 'Cancelled'];
-
+  const navigate = useNavigate();
   // Dữ liệu mẫu các đơn đặt chỗ
   const bookings = [
     {
@@ -114,7 +114,7 @@ const MyBookingsPage = () => {
             <a href="/" className="hover:text-orange-600 transition-colors">Home</a>
             <a href="/search" className="hover:text-orange-600 transition-colors">Services</a>
             <a href="/my-bookings" className="text-orange-600">My Booking</a>
-            <div className="w-10 h-10 rounded-full bg-orange-100 border-2 border-white flex items-center justify-center shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-orange-100 border-2 border-white flex items-center justify-center shadow-sm cursor-pointer" onClick={() => navigate('/profile')}>
                 <User className="w-5 h-5 text-orange-600" />
             </div>
           </div>

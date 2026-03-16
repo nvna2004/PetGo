@@ -12,7 +12,7 @@ import {
   ArrowRight,
   Info
 } from 'lucide-react';
-
+import { useNavigate } from 'react-router-dom';
 const FavoritesPage = () => {
   const [favorites, setFavorites] = useState([
     {
@@ -40,13 +40,13 @@ const FavoritesPage = () => {
   const removeFavorite = (id) => {
     setFavorites(favorites.filter(item => item.id !== id));
   };
-
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-gray-800 pb-20">
       {/* Header PetGo */}
       <header className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 h-16 sm:h-20 flex justify-between items-center">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.location.href = '/'}>
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
             <div className="bg-orange-500 p-1.5 rounded-lg shadow-lg shadow-orange-100">
               <PawPrint className="w-5 h-5 text-white" />
             </div>
@@ -58,7 +58,7 @@ const FavoritesPage = () => {
             <a href="/search" className="hover:text-orange-600 transition-colors">Services</a>
             <a href="/my-bookings" className="hover:text-orange-600 transition-colors">My Booking</a>
             <a href="/favorites" className="text-orange-600">Favorites</a>
-            <div className="w-10 h-10 rounded-full bg-orange-100 border-2 border-white flex items-center justify-center shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-orange-100 border-2 border-white flex items-center justify-center shadow-sm" onClick={() => navigate('/profile')}>
                 <User className="w-5 h-5 text-orange-600" />
             </div>
           </nav>
@@ -113,7 +113,7 @@ const FavoritesPage = () => {
                   </div>
 
                   <h3 
-                    onClick={() => window.location.href = `/providers/${item.id}`}
+                    onClick={() => navigate(`/providers/${item.id}`)}
                     className="text-xl font-black text-gray-900 mb-2 leading-tight hover:text-orange-600 transition-colors cursor-pointer"
                   >
                     {item.name}
@@ -131,13 +131,13 @@ const FavoritesPage = () => {
                     </div>
                     <div className="flex gap-2 flex-1 justify-end">
                       <button 
-                        onClick={() => window.location.href = `/providers/${item.id}`}
+                        onClick={() => navigate(`/providers/${item.id}`)}
                         className="px-5 py-3 bg-gray-100 text-gray-600 font-black rounded-2xl hover:bg-gray-200 transition-all uppercase tracking-widest text-[10px]"
                       >
                         Details
                       </button>
                       <button 
-                        onClick={() => window.location.href = `/booking?providerId=${item.id}`}
+                        onClick={() => navigate(`/booking?providerId=${item.id}`)}
                         className="px-6 py-3 bg-gray-900 text-white font-black rounded-2xl shadow-lg hover:bg-orange-500 transition-all uppercase tracking-widest text-[10px] flex items-center gap-2"
                       >
                         Book Now <Calendar className="w-3.5 h-3.5" />
@@ -162,7 +162,7 @@ const FavoritesPage = () => {
                Có vẻ như bạn chưa lưu bất kỳ spa hay phòng khám nào. Hãy khám phá ngay để tìm nơi tốt nhất cho thú cưng của bạn!
              </p>
              <button 
-              onClick={() => window.location.href = '/search'}
+              onClick={() => navigate('/search')}
               className="px-10 py-5 bg-orange-500 text-white font-black rounded-2xl shadow-xl shadow-orange-100 uppercase tracking-widest text-xs flex items-center gap-3 hover:scale-105 transition-all"
              >
                Explore Services <ArrowRight className="w-4 h-4" />
@@ -184,7 +184,7 @@ const FavoritesPage = () => {
               </p>
            </div>
            <button 
-            onClick={() => window.location.href = '/search'}
+            onClick={() => navigate('/search')}
             className="relative z-10 mt-8 md:mt-0 px-8 py-4 bg-white text-gray-900 font-black rounded-2xl hover:bg-orange-500 hover:text-white transition-all uppercase tracking-widest text-[10px]"
            >
               Tìm thêm dịch vụ
