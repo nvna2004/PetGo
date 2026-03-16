@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import {
-  Star,
-  MapPin,
-  Share2,
-  Heart,
-  Clock,
-  Calendar,
+import { 
+  Star, 
+  MapPin, 
+  Share2, 
+  Heart, 
+  Clock, 
+  Calendar, 
+  CheckCircle2, 
+  ChevronRight,
   PawPrint,
   User,
   X,
   Menu,
   Phone,
   MessageSquare,
-  ArrowLeft
+  ArrowLeft,
+  Maximize2,
+  Info
 } from 'lucide-react';
 
 const ProviderDetailPage = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState(null);
-  const navigate = useNavigate();
-  const { id } = useParams();
 
+  // Dữ liệu mẫu nhà cung cấp
   const provider = {
+    id: 1,
     name: "Paws & Relax Luxury Spa",
     rating: 4.9,
     reviewsCount: 156,
@@ -52,142 +54,147 @@ const ProviderDetailPage = () => {
     ]
   };
 
+  const handleSlotClick = (slot) => {
+    setSelectedSlot(slot);
+    window.location.href = `/booking?providerId=${provider.id}&time=${slot}`;
+  };
+
   return (
     <div className="min-h-screen bg-white font-sans text-gray-800 pb-20">
+      {/* Header PetGo */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16 sm:h-20">
-            <div className="flex items-center gap-4">
-              <button onClick={() => navigate(-1)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <ArrowLeft className="w-5 h-5" />
-              </button>
-              <div className="flex items-center gap-2">
-                <div className="bg-orange-500 p-1.5 rounded-lg">
-                  <PawPrint className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-black text-gray-900">Pet<span className="text-orange-500">Go</span></span>
-              </div>
-            </div>
-
-            <nav className="hidden lg:flex items-center gap-8 text-sm font-semibold">
-              <Link to="/" className="text-gray-600 hover:text-orange-600">Home</Link>
-              <Link to="/search" className="text-orange-600">Services</Link>
-              <Link to="/my-bookings" className="text-gray-600 hover:text-orange-600">My Booking</Link>
-              <div className="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center border-2 border-white shadow-sm">
-                <User className="w-4 h-4 text-orange-600" />
-              </div>
-            </nav>
-
-            <button className="lg:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              {isMenuOpen ? <X /> : <Menu />}
-            </button>
+        <div className="max-w-7xl mx-auto px-4 h-16 sm:h-20 flex justify-between items-center">
+          <div className="flex items-center gap-4">
+             <button 
+                onClick={() => window.location.href = '/search'}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+             >
+               <ArrowLeft className="w-5 h-5" />
+             </button>
+             <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.location.href = '/'}>
+               <div className="bg-orange-500 p-1.5 rounded-lg">
+                 <PawPrint className="w-5 h-5 text-white" />
+               </div>
+               <span className="text-xl font-black text-gray-900">Pet<span className="text-orange-500">Go</span></span>
+             </div>
           </div>
+
+          <nav className="hidden lg:flex items-center gap-8 text-sm font-bold text-gray-500">
+            <a href="/" className="hover:text-orange-600 transition-colors">Home</a>
+            <a href="/search" className="hover:text-orange-600 transition-colors text-orange-600">Services</a>
+            <a href="/my-bookings" className="hover:text-orange-600 transition-colors">My Booking</a>
+            <div 
+                onClick={() => window.location.href = '/favorites'}
+                className="p-2 bg-gray-50 rounded-full hover:text-red-500 transition-colors cursor-pointer"
+            >
+                <Heart className="w-5 h-5" />
+            </div>
+          </nav>
         </div>
       </header>
 
-      <section className="relative h-[40vh] sm:h-[50vh] w-full overflow-hidden">
-        <img src={provider.bannerImage} alt={provider.name} className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-        <div className="absolute bottom-8 left-0 w-full">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-end">
-            <div className="text-white">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="px-3 py-1 bg-orange-500 text-[10px] font-black uppercase rounded-full tracking-widest">Premium Spa</span>
-                <div className="flex items-center gap-1 bg-white/20 backdrop-blur-md px-2 py-1 rounded-lg">
-                  <Star className="w-3 h-3 text-yellow-400 fill-current" />
-                  <span className="text-xs font-bold">{provider.rating}</span>
-                </div>
-              </div>
-              <h1 className="text-3xl sm:text-5xl font-black tracking-tight">{provider.name}</h1>
+      {/* Hero Banner Area */}
+      <section className="relative h-[45vh] w-full overflow-hidden">
+        <img 
+          src={provider.bannerImage} 
+          alt={provider.name} 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+        <div className="absolute bottom-10 left-0 w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-end gap-6">
+            <div className="text-white flex-1">
+               <div className="flex items-center gap-2 mb-3">
+                 <span className="px-3 py-1 bg-orange-500 text-[10px] font-black uppercase rounded-full tracking-widest">Premium Provider</span>
+                 <div className="flex items-center gap-1.5 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
+                   <Star className="w-3.5 h-3.5 text-yellow-400 fill-current" />
+                   <span className="text-xs font-black">{provider.rating}</span>
+                 </div>
+               </div>
+               <h1 className="text-4xl sm:text-6xl font-black tracking-tighter mb-2">{provider.name}</h1>
+               <div className="flex items-center gap-2 text-sm font-medium text-white/80">
+                  <MapPin className="w-4 h-4 text-orange-400" />
+                  {provider.address}
+               </div>
             </div>
-            <div className="hidden sm:flex gap-3">
-              <button className="p-3 bg-white/20 backdrop-blur-md hover:bg-white/40 text-white rounded-2xl transition-all">
+            
+            <div className="flex gap-3">
+              <button className="p-4 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white rounded-[1.5rem] border border-white/20 transition-all">
                 <Share2 className="w-5 h-5" />
               </button>
-              <button
-                onClick={() => setIsFavorite(!isFavorite)}
-                className={`p-3 backdrop-blur-md rounded-2xl transition-all ${isFavorite ? 'bg-red-500 text-white' : 'bg-white/20 text-white hover:bg-white/40'}`}
+              <button 
+                onClick={() => window.location.href = '/favorites'}
+                className={`p-4 backdrop-blur-md rounded-[1.5rem] border border-white/20 transition-all ${isFavorite ? 'bg-red-500 text-white' : 'bg-white/10 text-white hover:bg-white/20'}`}
               >
                 <Heart className={`w-5 h-5 ${isFavorite ? 'fill-current' : ''}`} />
+              </button>
+              <button 
+                onClick={() => window.location.href = '/compare'}
+                className="p-4 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white rounded-[1.5rem] border border-white/20 transition-all"
+                title="So sánh"
+              >
+                <Maximize2 className="w-5 h-5" />
               </button>
             </div>
           </div>
         </div>
       </section>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+      {/* Detail Content Layout */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-10">
         <div className="flex flex-col lg:flex-row gap-10">
+          
+          {/* Main Info Column */}
           <div className="flex-1 space-y-12">
-            <div className="flex sm:hidden gap-4 mt-8">
-              <button className="flex-1 py-3 bg-gray-100 rounded-2xl font-bold flex items-center justify-center gap-2">
-                <Share2 className="w-4 h-4" /> Share
-              </button>
-              <button
-                onClick={() => setIsFavorite(!isFavorite)}
-                className={`flex-1 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 transition-all ${isFavorite ? 'bg-red-50 text-red-500 border border-red-100' : 'bg-gray-100'}`}
-              >
-                <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} /> Favorite
-              </button>
-            </div>
-
-            <div className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm">
-              <div className="flex items-start gap-4 mb-8">
-                <div className="p-4 bg-orange-50 rounded-2xl">
-                  <MapPin className="w-6 h-6 text-orange-500" />
-                </div>
-                <div>
-                  <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-1">Địa chỉ</h3>
-                  <p className="text-lg font-bold text-gray-900">{provider.address}</p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <StatItem label="Đánh giá" value={`${provider.rating} / 5`} />
-                <StatItem label="Reviews" value={provider.reviewsCount} />
-                <StatItem label="Kinh nghiệm" value="10+ năm" />
-                <StatItem label="Chứng chỉ" value="Verified" />
-              </div>
-            </div>
-
-            <section>
-              <h2 className="text-2xl font-black text-gray-900 mb-6 flex items-center gap-3">
-                <div className="w-2 h-8 bg-orange-500 rounded-full"></div> Gallery
+            
+            {/* Gallery Grid */}
+            <section className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm">
+              <h2 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+                 <div className="w-1.5 h-4 bg-orange-500 rounded-full"></div> Không gian & Hình ảnh
               </h2>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {provider.gallery.map((img, idx) => (
-                  <div key={idx} className="aspect-square rounded-[2rem] overflow-hidden group cursor-pointer border-4 border-white shadow-sm hover:shadow-xl transition-all">
+                  <div key={idx} className="aspect-square rounded-3xl overflow-hidden group cursor-pointer border-2 border-white shadow-sm hover:shadow-xl transition-all">
                     <img src={img} alt="Gallery" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   </div>
                 ))}
               </div>
             </section>
 
-            <section>
-              <h2 className="text-2xl font-black text-gray-900 mb-4">Mô tả cửa hàng</h2>
+            {/* Store Description */}
+            <section className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm">
+              <h2 className="text-2xl font-black text-gray-900 mb-4">Về cửa hàng</h2>
               <p className="text-gray-500 leading-relaxed font-medium">
                 {provider.description}
               </p>
             </section>
 
-            <section>
-              <h2 className="text-2xl font-black text-gray-900 mb-6">Dịch vụ của chúng tôi</h2>
+            {/* Services List */}
+            <section className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm">
+              <h2 className="text-2xl font-black text-gray-900 mb-8 flex items-center justify-between">
+                Danh sách dịch vụ
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">{provider.services.length} Dịch vụ</span>
+              </h2>
               <div className="space-y-4">
                 {provider.services.map((service) => (
-                  <div key={service.id} className="group bg-gray-50 p-6 rounded-[2rem] border border-transparent hover:bg-white hover:border-orange-100 hover:shadow-xl hover:shadow-orange-100/50 transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                  <div key={service.id} className="group p-6 bg-gray-50 rounded-[2rem] border-2 border-transparent hover:bg-white hover:border-orange-100 hover:shadow-xl hover:shadow-orange-100/30 transition-all duration-300 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-1">
-                        <h4 className="text-lg font-black text-gray-900">{service.name}</h4>
-                        <span className="flex items-center gap-1 text-[10px] font-bold text-gray-400 bg-white px-2 py-0.5 rounded-full border border-gray-100">
-                          <Clock className="w-3 h-3" /> {service.duration}
-                        </span>
+                         <h4 className="text-lg font-black text-gray-900">{service.name}</h4>
+                         <span className="flex items-center gap-1.5 text-[10px] font-bold text-gray-400 bg-white px-2.5 py-1 rounded-full border border-gray-100">
+                           <Clock className="w-3.5 h-3.5" /> {service.duration}
+                         </span>
                       </div>
                       <p className="text-sm text-gray-500 font-medium">{service.desc}</p>
                     </div>
-                    <div className="flex items-center justify-between sm:justify-end gap-6 border-t sm:border-t-0 pt-4 sm:pt-0">
-                      <span className="text-xl font-black text-orange-600">{service.price}đ</span>
-                      <button
-                        onClick={() => navigate(`/booking?providerId=${id}&serviceId=${service.id}`)}
-                        className="px-6 py-3 bg-gray-900 text-white text-xs font-black rounded-2xl hover:bg-orange-500 hover:shadow-lg transition-all uppercase tracking-widest"
+                    <div className="flex items-center justify-between sm:justify-end gap-8 border-t sm:border-t-0 pt-4 sm:pt-0">
+                      <div className="text-right">
+                        <span className="block text-[10px] font-black text-gray-300 uppercase mb-0.5 tracking-widest">Giá từ</span>
+                        <span className="text-2xl font-black text-orange-600">{service.price}đ</span>
+                      </div>
+                      <button 
+                        onClick={() => window.location.href = `/booking?providerId=${provider.id}&serviceId=${service.id}`}
+                        className="px-8 py-4 bg-gray-900 text-white text-[10px] font-black rounded-[1.5rem] hover:bg-orange-500 hover:shadow-lg transition-all uppercase tracking-widest"
                       >
                         Book Now
                       </button>
@@ -197,101 +204,121 @@ const ProviderDetailPage = () => {
               </div>
             </section>
 
-            <section>
-              <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl font-black text-gray-900">Khách hàng đánh giá</h2>
-                <button className="text-sm font-bold text-orange-600 hover:underline">Xem tất cả</button>
+            {/* Reviews Section */}
+            <section className="bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm">
+              <div className="flex items-center justify-between mb-10">
+                <div>
+                  <h2 className="text-2xl font-black text-gray-900 mb-1">Đánh giá thực tế</h2>
+                  <p className="text-sm font-bold text-gray-400 uppercase tracking-widest italic">{provider.reviewsCount} Khách hàng đã sử dụng</p>
+                </div>
+                <div className="text-right">
+                  <span className="text-3xl font-black text-gray-900">{provider.rating}</span>
+                  <div className="flex gap-0.5 text-yellow-400">
+                    <Star className="w-4 h-4 fill-current" />
+                    <Star className="w-4 h-4 fill-current" />
+                    <Star className="w-4 h-4 fill-current" />
+                    <Star className="w-4 h-4 fill-current" />
+                    <Star className="w-4 h-4 fill-current" />
+                  </div>
+                </div>
               </div>
+              
               <div className="space-y-6">
                 {provider.reviews.map((rev) => (
-                  <div key={rev.id} className="p-6 rounded-[2rem] border border-gray-100 bg-white shadow-sm">
+                  <div key={rev.id} className="p-8 rounded-[2rem] bg-gray-50 border border-gray-100 hover:bg-white hover:border-orange-100 transition-all">
                     <div className="flex justify-between items-start mb-4">
-                      <div className="flex items-center gap-3">
-                        <img src={rev.avatar} alt={rev.user} className="w-12 h-12 rounded-full object-cover" />
+                      <div className="flex items-center gap-4">
+                        <img src={rev.avatar} alt={rev.user} className="w-14 h-14 rounded-2xl object-cover border-2 border-white shadow-sm" />
                         <div>
-                          <h5 className="font-black text-gray-900">{rev.user}</h5>
-                          <span className="text-xs font-bold text-gray-400">{rev.date}</span>
+                          <h5 className="font-black text-gray-900 text-lg">{rev.user}</h5>
+                          <span className="text-xs font-bold text-gray-400 tracking-widest uppercase">{rev.date}</span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-1 px-2 py-1 bg-yellow-50 rounded-lg">
-                        <Star className="w-3 h-3 text-yellow-500 fill-current" />
-                        <span className="text-xs font-black text-yellow-700">{rev.rating}.0</span>
+                      <div className="flex items-center gap-1.5 px-3 py-1 bg-yellow-400 text-yellow-900 rounded-lg">
+                        <Star className="w-3.5 h-3.5 fill-current" />
+                        <span className="text-xs font-black">{rev.rating}.0</span>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-600 leading-relaxed font-medium">"{rev.comment}"</p>
+                    <p className="text-gray-600 leading-relaxed font-medium italic">"{rev.comment}"</p>
                   </div>
                 ))}
               </div>
             </section>
           </div>
 
-          <aside className="lg:w-[380px] space-y-8">
+          {/* Sidebar: Booking Info & Hours */}
+          <aside className="lg:w-[400px]">
             <div className="sticky top-28 space-y-8">
-              <div className="bg-gray-900 text-white p-8 rounded-[2.5rem] shadow-2xl">
-                <h3 className="text-lg font-black mb-6 flex items-center gap-2">
-                  <Clock className="w-5 h-5 text-orange-500" /> Giờ làm việc
+              
+              {/* Working Hours Card */}
+              <div className="bg-gray-900 text-white p-10 rounded-[3rem] shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-8 opacity-10">
+                    <Clock className="w-32 h-32 rotate-12" />
+                </div>
+                <h3 className="text-xl font-black mb-8 flex items-center gap-3 relative z-10">
+                  <div className="p-2 bg-orange-500 rounded-xl">
+                    <Clock className="w-5 h-5 text-white" />
+                  </div>
+                  Giờ làm việc
                 </h3>
-                <div className="space-y-4">
+                <div className="space-y-5 relative z-10">
                   {provider.hours.map((h, i) => (
                     <div key={i} className="flex justify-between items-center text-sm">
                       <span className="font-bold text-gray-400">{h.days}</span>
+                      <div className="h-px flex-1 border-t border-dashed border-white/20 mx-4"></div>
                       <span className="font-black text-white">{h.time}</span>
                     </div>
                   ))}
                 </div>
-                <div className="mt-8 pt-6 border-t border-white/10">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center">
-                      <Phone className="w-5 h-5 text-orange-500" />
-                    </div>
-                    <span className="text-sm font-bold">090 123 4567</span>
-                  </div>
-                  <button className="w-full py-4 bg-orange-500 hover:bg-orange-600 text-white font-black rounded-2xl transition-all shadow-lg shadow-orange-500/20 flex items-center justify-center gap-2">
-                    <MessageSquare className="w-5 h-5" /> Chat với chúng tôi
-                  </button>
+                <div className="mt-10 pt-8 border-t border-white/10 relative z-10">
+                   <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center">
+                        <Phone className="w-5 h-5 text-orange-500" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Hotline hỗ trợ</p>
+                        <p className="text-lg font-black tracking-tight italic">090 123 4567</p>
+                      </div>
+                   </div>
+                   <button className="w-full py-5 bg-white text-gray-900 font-black rounded-2xl hover:bg-orange-500 hover:text-white transition-all shadow-xl flex items-center justify-center gap-3 uppercase tracking-widest text-xs">
+                     <MessageSquare className="w-4 h-4" /> Chat với tư vấn viên
+                   </button>
                 </div>
               </div>
 
-              <div className="bg-white border border-gray-100 p-8 rounded-[2.5rem] shadow-sm">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-black text-gray-900">Slot trống hôm nay</h3>
+              {/* Appointment Slots Card */}
+              <div className="bg-white border border-gray-100 p-10 rounded-[3rem] shadow-sm text-center">
+                <div className="flex items-center justify-center gap-2 mb-8">
                   <Calendar className="w-5 h-5 text-orange-500" />
+                  <h3 className="text-xl font-black text-gray-900">Slot trống hôm nay</h3>
                 </div>
                 <div className="grid grid-cols-3 gap-3">
                   {provider.slots.map((slot) => (
-                    <button
+                    <button 
                       key={slot}
-                      onClick={() => {
-                        setSelectedSlot(slot);
-                        navigate(`/booking?providerId=${id}&time=${slot}`);
-                      }}
-                      className={`py-3 rounded-2xl text-xs font-black transition-all ${
-                        selectedSlot === slot
-                          ? 'bg-orange-500 text-white shadow-lg shadow-orange-100'
-                          : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                      }`}
+                      onClick={() => handleSlotClick(slot)}
+                      className="group relative py-4 rounded-2xl text-xs font-black transition-all bg-gray-50 text-gray-600 hover:bg-orange-500 hover:text-white hover:shadow-lg active:scale-95"
                     >
                       {slot}
+                      <span className="absolute -top-2 -right-2 bg-green-500 w-3 h-3 rounded-full border-2 border-white"></span>
                     </button>
                   ))}
                 </div>
-                <p className="mt-6 text-[10px] text-gray-400 text-center font-bold uppercase tracking-widest">
-                  Chọn giờ để tiến hành đặt chỗ
-                </p>
+                <div className="mt-8 flex items-start gap-3 p-4 bg-orange-50 rounded-2xl text-left border border-orange-100">
+                    <Info className="w-4 h-4 text-orange-500 shrink-0 mt-0.5" />
+                    <p className="text-[10px] font-bold text-orange-800 leading-relaxed uppercase tracking-tight">
+                        Chọn một khung giờ để bắt đầu tiến trình đặt lịch nhanh. Lịch sẽ được xác nhận ngay lập tức.
+                    </p>
+                </div>
               </div>
+
             </div>
           </aside>
+
         </div>
       </main>
     </div>
   );
 };
-
-const StatItem = ({ label, value }) => (
-  <div className="text-center sm:text-left">
-    <span className="block text-[10px] font-black text-gray-300 uppercase tracking-widest mb-1">{label}</span>
-    <span className="block text-base font-black text-gray-900">{value}</span>
-  </div>
-);
 
 export default ProviderDetailPage;

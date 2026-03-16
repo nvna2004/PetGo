@@ -56,10 +56,10 @@ const LoginPage = () => {
         setIsLoading(false);
       }
       */
-    } catch (err) {
-      setError('Đã xảy ra lỗi. Vui lòng thử lại.');
-      setIsLoading(false);
-    }
+    } catch {
+  setError('Đã xảy ra lỗi. Vui lòng thử lại.');
+  setIsLoading(false);
+}
   };
 
   return (
