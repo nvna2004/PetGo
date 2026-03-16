@@ -9,7 +9,6 @@ import { useNavigate, Link } from 'react-router-dom';
 const ProviderListPage = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activePage, setActivePage] = useState(1);
   const [favorites, setFavorites] = useState([]);
   const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
 

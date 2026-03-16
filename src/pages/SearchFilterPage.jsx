@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Search, 
   MapPin, 
@@ -17,12 +17,13 @@ import {
   X,
   Menu
 } from 'lucide-react';
-
+import { useNavigate } from 'react-router-dom';
 const App = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const [results, setResults] = useState([]);
+const [results, setResults] = useState(allProviders);
   const [favorites, setFavorites] = useState([]);
 
   // Dữ liệu mẫu
@@ -62,9 +63,7 @@ const App = () => {
     }
   ];
 
-  useEffect(() => {
-    setResults(allProviders);
-  }, []);
+
 
   const handleSearch = (e) => {
     const query = e.target.value;
@@ -106,7 +105,7 @@ const App = () => {
             <a href="/" className="hover:text-orange-600 transition-colors">Home</a>
             <a href="/search" className="text-orange-600">Services</a>
             <a href="/my-bookings" className="hover:text-orange-600 transition-colors">My Booking</a>
-            <div className="w-9 h-9 rounded-full bg-orange-100 border-2 border-white shadow-sm flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-orange-100 border-2 border-white shadow-sm flex items-center justify-center cursor-pointer" onClick={() => navigate('/profile')}>
               <User className="w-4 h-4 text-orange-600" />
             </div>
           </nav>
