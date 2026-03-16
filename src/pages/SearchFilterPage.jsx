@@ -18,12 +18,11 @@ import {
   Menu
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-const App = () => {
+const SearchFilterPage = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-const [results, setResults] = useState(allProviders);
   const [favorites, setFavorites] = useState([]);
 
   // Dữ liệu mẫu
@@ -62,6 +61,8 @@ const [results, setResults] = useState(allProviders);
       image: "https://images.unsplash.com/photo-1591768793355-74d7ca738055?auto=format&fit=crop&q=80&w=400"
     }
   ];
+
+  const [results, setResults] = useState(allProviders);
 
 
 
@@ -368,4 +369,4 @@ const FilterGroup = ({ label, children }) => (
   </div>
 );
 
-export default App;
+export default SearchFilterPage;
