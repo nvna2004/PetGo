@@ -16,8 +16,17 @@ import {
 } from 'lucide-react';
 
 const ProviderListPage = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activePage, setActivePage] = useState(1);
+  const [favorites, setFavorites] = useState([]);
+  const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
+
+  const toggleFavorite = (id) => {
+    setFavorites(prev =>
+      prev.includes(id) ? prev.filter(favId => favId !== id) : [...prev, id]
+    );
+  };
 
   const providers = [
     {
@@ -88,9 +97,11 @@ const ProviderListPage = () => {
     }
   ];
 
+  const favoriteProviders = providers.filter(p => favorites.includes(p.id));
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans text-gray-800">
-      <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+      <header className="sticky top-0 z-[100] bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
             <div className="flex items-center gap-2">
@@ -117,11 +128,101 @@ const ProviderListPage = () => {
               <Link to="/" className="text-orange-600">Home</Link>
               <Link to="/search" className="text-gray-600 hover:text-orange-600 transition-colors">Services</Link>
               <Link to="/my-bookings" className="text-gray-600 hover:text-orange-600 transition-colors">My Booking</Link>
-              <div className="flex items-center gap-2 pl-4 border-l border-gray-200">
-                <div className="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center border-2 border-white shadow-sm">
-                  <User className="w-4 h-4 text-orange-600" />
+
+              <div className="flex items-center gap-6 pl-4 border-l border-gray-200">
+                {/* Favorites Dropdown */}
+                <div className="relative">
+                  <button
+                    onClick={() => setIsFavoritesOpen(!isFavoritesOpen)}
+                    className="relative group p-2 rounded-full hover:bg-red-50 transition-all outline-none"
+                  >
+                    <Heart className={`w-5 h-5 transition-colors ${favorites.length > 0 ? 'text-red-500 fill-current' : 'text-gray-400 group-hover:text-red-500'}`} />
+                    {favorites.length > 0 && (
+                      <span className="absolute top-0 right-0 w-5 h-5 bg-red-500 text-white text-[10px] font-black rounded-full flex items-center justify-center border-2 border-white shadow-sm animate-in zoom-in-50">
+                        {favorites.length}
+                      </span>
+                    )}
+                  </button>
+
+                  {/* Dropdown Content */}
+                  {isFavoritesOpen && (
+                    <>
+                      <div
+                        className="fixed inset-0 z-10"
+                        onClick={() => setIsFavoritesOpen(false)}
+                      ></div>
+                      <div className="absolute right-0 mt-4 w-80 bg-white rounded-[2rem] shadow-2xl shadow-gray-200/50 border border-gray-50 overflow-hidden z-20 animate-in fade-in slide-in-from-top-4 duration-300">
+                        <div className="p-5 border-b border-gray-50 flex items-center justify-between">
+                          <h3 className="font-black text-gray-900">Yêu thích ({favorites.length})</h3>
+                          <Heart className="w-4 h-4 text-red-500 fill-current" />
+                        </div>
+
+                        <div className="max-h-96 overflow-y-auto custom-scrollbar">
+                          {favoriteProviders.length > 0 ? (
+                            <div className="p-2 space-y-1">
+                              {favoriteProviders.map(provider => (
+                                <div
+                                  key={provider.id}
+                                  className="group flex items-center gap-4 p-3 rounded-2xl hover:bg-orange-50 transition-all cursor-pointer"
+                                  onClick={() => {
+                                    setIsFavoritesOpen(false);
+                                    navigate(`/providers/${provider.id}`);
+                                  }}
+                                >
+                                  <div className="w-14 h-14 rounded-xl overflow-hidden shadow-sm">
+                                    <img src={provider.image} alt={provider.name} className="w-full h-full object-cover" />
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <h4 className="font-black text-sm text-gray-900 truncate">{provider.name}</h4>
+                                    <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{provider.type}</p>
+                                    <p className="text-sm font-black text-orange-600">{provider.priceFrom}đ</p>
+                                  </div>
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      toggleFavorite(provider.id);
+                                    }}
+                                    className="p-2 text-gray-300 hover:text-red-500 transition-colors"
+                                  >
+                                    <X className="w-4 h-4" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="p-10 text-center space-y-4">
+                              <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto">
+                                <Heart className="w-8 h-8 text-gray-200" />
+                              </div>
+                              <p className="text-sm font-medium text-gray-400">Chưa có dịch vụ nào trong danh sách yêu thích</p>
+                            </div>
+                          )}
+                        </div>
+
+                        {favoriteProviders.length > 0 && (
+                          <div className="p-4 bg-gray-50">
+                            <button
+                              className="w-full py-3 bg-gray-900 text-white text-xs font-black rounded-xl hover:bg-orange-500 transition-all uppercase tracking-widest shadow-lg"
+                              onClick={() => setIsFavoritesOpen(false)}
+                            >
+                              Xem tất cả
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </>
+                  )}
                 </div>
-                <span className="text-gray-700">Profile</span>
+
+                <div
+                  className="flex items-center gap-2 cursor-pointer group"
+                  onClick={() => navigate('/profile')}
+                >
+                  <div className="w-9 h-9 rounded-full bg-orange-100 flex items-center justify-center border-2 border-white shadow-sm group-hover:bg-orange-500 transition-all">
+                    <User className="w-4 h-4 text-orange-600 group-hover:text-white" />
+                  </div>
+                  <span className="text-gray-700 font-bold group-hover:text-orange-600 transition-colors">Profile</span>
+                </div>
               </div>
             </nav>
 
@@ -140,7 +241,7 @@ const ProviderListPage = () => {
             <Link to="/" className="block py-2 text-orange-600 font-bold">Home</Link>
             <Link to="/search" className="block py-2 text-gray-600 font-medium">Services</Link>
             <Link to="/my-bookings" className="block py-2 text-gray-600 font-medium">My Booking</Link>
-            <a href="#" className="block py-2 text-gray-600 font-medium">Profile</a>
+            <a href="#" className="block py-2 text-gray-600 font-medium" onClick={() => navigate('/profile')}>Profile</a>
           </div>
         )}
       </header>
@@ -183,7 +284,12 @@ const ProviderListPage = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {providers.map((provider) => (
-            <ServiceCard key={provider.id} provider={provider} />
+            <ServiceCard
+              key={provider.id}
+              provider={provider}
+              isFavorited={favorites.includes(provider.id)}
+              onToggleFavorite={() => toggleFavorite(provider.id)}
+            />
           ))}
         </div>
 
@@ -196,11 +302,10 @@ const ProviderListPage = () => {
             <button
               key={page}
               onClick={() => setActivePage(page)}
-              className={`w-10 h-10 rounded-xl font-bold text-sm transition-all ${
-                activePage === page
+              className={`w-10 h-10 rounded-xl font-bold text-sm transition-all ${activePage === page
                   ? 'bg-orange-500 text-white shadow-lg shadow-orange-200 scale-110'
                   : 'bg-white border border-gray-100 text-gray-500 hover:border-orange-200 hover:text-orange-500 shadow-sm'
-              }`}
+                }`}
             >
               {page}
             </button>
@@ -250,7 +355,7 @@ const FilterButton = ({ icon, label }) => (
   </button>
 );
 
-const ServiceCard = ({ provider }) => {
+const ServiceCard = ({ provider, isFavorited, onToggleFavorite }) => {
   const navigate = useNavigate();
 
   return (
@@ -263,8 +368,15 @@ const ServiceCard = ({ provider }) => {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-        <button className="absolute top-5 right-5 p-2.5 bg-white/90 backdrop-blur-md rounded-2xl text-gray-400 hover:text-red-500 hover:scale-110 transition-all shadow-lg">
-          <Heart className="w-5 h-5" />
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleFavorite();
+          }}
+          className={`absolute top-5 right-5 p-2.5 backdrop-blur-md rounded-2xl transition-all shadow-lg active:scale-90 z-20 ${isFavorited ? 'bg-red-500 text-white scale-110' : 'bg-white/90 text-gray-400 hover:text-red-500'
+            }`}
+        >
+          <Heart className={`w-5 h-5 ${isFavorited ? 'fill-current' : ''}`} />
         </button>
 
         {provider.isFeatured && (
@@ -316,5 +428,7 @@ const ServiceCard = ({ provider }) => {
     </div>
   );
 };
+
+
 
 export default ProviderListPage;
