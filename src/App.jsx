@@ -12,6 +12,10 @@ import BookingSuccessPage from "./pages/BookingSuccessPage";
 import MyBookingsPage from "./pages/MyBookingsPage";
 import BookingDetailPage from "./pages/BookingDetailPage";
 import ReviewPage from "./pages/ReviewPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ProfilePage from "./pages/ProfilePage";
+import AddPetPage from "./pages/AddPetPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import RescheduleBookingPage from "./pages/RescheduleBookingPage";
 import CancelBookingPage from "./pages/CancelBookingPage";
@@ -51,6 +55,10 @@ export default function App() {
 
         {/* Reviews */}
         <Route path="/reviews/create/:bookingId" element={<ReviewPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/add-pet" element={<AddPetPage />} />
 
         {/* Support */}
         <Route path="/help-center" element={<HelpCenterPage />} />
