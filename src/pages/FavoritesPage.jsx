@@ -20,7 +20,7 @@ const FavoritesPage = () => {
       name: "Paws & Relax Luxury Spa",
       rating: 4.8,
       reviews: 156,
-      address: "Quận 1, TP. Hồ Chí Minh",
+      address: "Hoà Lạc, TP. Hà Nội",
       priceFrom: "200.000",
       featuredService: "Tắm & Cắt tỉa",
       image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=400"

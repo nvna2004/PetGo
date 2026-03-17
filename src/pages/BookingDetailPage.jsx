@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { 
   ArrowLeft, 
   PawPrint, 
@@ -27,7 +28,7 @@ const BookingDetailPage = () => {
     provider: {
       id: 1,
       name: "Paws & Relax Luxury Spa",
-      address: "123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh",
+      address: "123 Hoà Lạc, TP. Hà Nội",
       phone: "090 123 4567",
       image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=200"
     },
