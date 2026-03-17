@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,66 +7,65 @@
   <link rel="stylesheet" href="css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 </head>
-
 <body>
-  <div class="app">
-    <!-- SIDEBAR -->
-    <div class="sidebar">
-      <div class="sidebar-logo">
-        <div class="logo-icon">P</div>
-        <span class="logo-text">PetGo</span>
-        <span class="logo-badge">v1.0</span>
-      </div>
-      <div class="role-switch">
-        <select id="roleSelect" onchange="switchRole(this.value)">
-          <option value="admin">👑 Admin</option>
-          <option value="partner">🏪 Đối tác - Pawsome Spa</option>
-        </select>
-      </div>
-      <nav class="sidebar-nav" id="sidebarNav"></nav>
+<div class="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">P</div>
+      <span class="logo-text">PetGo</span>
+      <span class="logo-badge">v1.0</span>
     </div>
+    <div class="role-switch">
+      <select id="roleSelect" onchange="switchRole(this.value)">
+        <option value="admin">👑 Admin</option>
+        <option value="partner">🏪 Đối tác - Pawsome Spa</option>
+        <option value="partner-apply">📝 Đăng ký làm đối tác</option>
+      </select>
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav"></nav>
+  </div>
 
-    <!-- MAIN -->
-    <div class="main">
-      <div class="topbar">
-        <div class="topbar-title" id="topbarTitle">Dashboard tổng quan</div>
-        <div class="topbar-actions">
-          <div class="topbar-notif" onclick="renderPanel('admin-notifications')" title="Thông báo">
-            🔔<div class="notif-dot" id="notifDot"></div>
-          </div>
-          <div class="avatar" id="userAvatar" onclick="showProfileMenu()">AD</div>
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbarTitle">Dashboard tổng quan</div>
+      <div class="topbar-actions">
+        <div class="topbar-notif" onclick="renderPanel('admin-notifications')" title="Thông báo">
+          🔔<div class="notif-dot" id="notifDot"></div>
         </div>
-      </div>
-      <div class="content" id="mainContent"></div>
-    </div>
-  </div>
-
-  <!-- MODAL -->
-  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
-    <div class="modal" id="modalBox">
-      <div class="modal-header">
-        <div class="modal-title" id="modalTitle"></div>
-        <button class="modal-close" onclick="closeModal()">✕</button>
-      </div>
-      <div id="modalBody"></div>
-      <div class="modal-footer">
-        <button class="btn" onclick="closeModal()">Hủy</button>
-        <button class="btn btn-primary" id="modalConfirm">Xác nhận</button>
+        <div class="avatar" id="userAvatar" onclick="showProfileMenu()">AD</div>
       </div>
     </div>
+    <div class="content" id="mainContent"></div>
   </div>
+</div>
 
-  <!-- TOAST -->
-  <div class="toast" id="toast">
-    <span class="toast-icon" id="toastIcon">✓</span>
-    <span id="toastMsg">Thao tác thành công</span>
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">Hủy</button>
+      <button class="btn btn-primary" id="modalConfirm">Xác nhận</button>
+    </div>
   </div>
+</div>
 
-  <script src="js/data.js"></script>
-  <script src="js/utils.js"></script>
-  <script src="js/admin.js"></script>
-  <script src="js/partner.js"></script>
-  <script src="js/app.js"></script>
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">✓</span>
+  <span id="toastMsg">Thao tác thành công</span>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/partner.js"></script>
+<script src="js/app.js"></script>
 </body>
-
 </html>
