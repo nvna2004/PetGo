@@ -29,7 +29,7 @@ const ProviderDetailPage = () => {
     name: "Paws & Relax Luxury Spa",
     rating: 4.9,
     reviewsCount: 156,
-    address: "123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh",
+    address: "123 Hoà Lạc, TP. Hà Nội",
     description: "Paws & Relax Luxury Spa là điểm đến hàng đầu cho các dịch vụ chăm sóc thú cưng cao cấp. Với đội ngũ chuyên gia hơn 10 năm kinh nghiệm và trang thiết bị hiện đại, chúng tôi cam kết mang lại trải nghiệm thư giãn tuyệt vời nhất cho người bạn nhỏ của bạn. Chúng tôi sử dụng các dòng sản phẩm organic an toàn tuyệt đối cho da và lông.",
     bannerImage: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=1200",
     gallery: [

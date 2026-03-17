@@ -27,7 +27,7 @@ const ProviderListPage = () => {
       type: "Spa & Grooming",
       rating: 4.9,
       reviews: 156,
-      address: "Quận 1, TP. Hồ Chí Minh",
+      address: "Hoà Lạc, TP. Hà Nội",
       priceFrom: "250.000",
       image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=600",
       isHot: true

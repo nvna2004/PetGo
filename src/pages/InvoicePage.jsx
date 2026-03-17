@@ -24,7 +24,7 @@ const InvoicePage = () => {
     status: "Đã thanh toán",
     provider: {
       name: "Paws & Relax Luxury Spa",
-      address: "123 Đường Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh",
+      address: "123 Hoà Lạc, TP. Hà Nội",
       phone: "090 123 4567"
     },
     service: {

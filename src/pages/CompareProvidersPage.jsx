@@ -28,7 +28,7 @@ const App = () => {
       id: 1,
       name: "Paws & Relax Luxury Spa",
       image: "https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=400",
-      address: "Quận 1, TP. Hồ Chí Minh",
+      address: "Hoà Lạc, TP. Hà Nội",
       rating: 4.8,
       reviews: 156,
       priceFrom: "200.000",

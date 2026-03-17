@@ -22,9 +22,11 @@ import CancelBookingPage from "./pages/CancelBookingPage";
 import InvoicePage from "./pages/InvoicePage";
 import NearbyProvidersPage from "./pages/NearbyProvidersPage";
 import HelpCenterPage from "./pages/HelpCenterPage";
-
+import NotFoundPage from "./pages/MembershipPage";
 // Optional fallback page
 // import NotFoundPage from "./pages/NotFoundPage";
+import MembershipPage from "./pages/MembershipPage";
+import MembershipPaymentPage from "./pages/MembershipPaymentPage";
 
 export default function App() {
   return (
@@ -59,7 +61,11 @@ export default function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/add-pet" element={<AddPetPage />} />
-
+        <Route path="/membership" element={<NotFoundPage />} />
+        <Route path="/payment?membership=true" element={<MembershipPaymentPage />} />
+{/* Membership */}
+        <Route path="/membership" element={<MembershipPage />} />
+        <Route path="/membership-payment" element={<MembershipPaymentPage />} />
         {/* Support */}
         <Route path="/help-center" element={<HelpCenterPage />} />
 
@@ -69,6 +75,7 @@ export default function App() {
 
         {/* 404 fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
+
         {/* Nếu bạn có trang 404 riêng thì dùng dòng này thay cho dòng trên */}
         {/* <Route path="*" element={<NotFoundPage />} /> */}
       </Routes>

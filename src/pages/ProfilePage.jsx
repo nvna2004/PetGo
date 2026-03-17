@@ -30,7 +30,7 @@ const ProfilePage = () => {
     name: "Nguyễn Văn A",
     email: "vana@example.com",
     phone: "090 123 4567",
-    address: "Quận 1, TP. Hồ Chí Minh",
+    address: "Hoà Lạc, TP. Hà Nội",
     joinDate: "Tháng 1, 2024",
     avatar: "https://i.pravatar.cc/150?img=12",
     cover: "https://images.unsplash.com/photo-1544568100-847a948585b9?auto=format&fit=crop&q=80&w=1200",
