@@ -1132,3 +1132,121 @@ function sendBulkOperationNotice() {
     <div class="form-group"><label class="form-label">Nội dung</label><textarea class="form-input" rows="4" placeholder="Ví dụ: Hệ thống sẽ bảo trì từ 23:00 đến 23:30 tối nay..."></textarea></div>
   `, () => showToast('Đã tạo thông báo vận hành')); 
 }
+
+
+// ---------- ADMIN PARTNER APPLICATIONS OVERRIDE ----------
+const _renderPartnerCardOriginal = typeof renderPartnerCard === 'function' ? renderPartnerCard : null;
+
+function renderPartnerApplicationCard(a) {
+  return `<div class="partner-card" style="border-style:dashed">
+    <div class="partner-avatar">${partnerIcon(a.type)}</div>
+    <div class="partner-info">
+      <div class="partner-name">${a.storeName} <span class="badge ${a.status === 'approved' ? 'badge-success' : a.status === 'reviewing' ? 'badge-info' : 'badge-warning'}">${a.status === 'approved' ? 'Đã duyệt' : a.status === 'reviewing' ? 'Đang xét duyệt' : 'Chờ duyệt'}</span></div>
+      <div class="partner-meta">${a.type} · ${a.city} · Gửi ngày ${a.submitted}</div>
+      <div class="d-flex gap-6 flex-wrap" style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">
+        <span>👤 ${a.owner}</span>
+        <span>📄 ${a.documents.length} tài liệu</span>
+        <span>🛎 ${a.services} dịch vụ dự kiến</span>
+      </div>
+      <div class="partner-actions">
+        <button class="btn btn-sm" onclick="viewPartnerApplication('${a.id}')">👁 Chi tiết</button>
+        ${a.status !== 'approved' ? `<button class="btn btn-sm btn-success" onclick="adminApproveApplication('${a.id}')">✓ Duyệt hồ sơ</button>` : ''}
+        ${a.status === 'pending' ? `<button class="btn btn-sm btn-warning" onclick="requestMorePartnerDocs('${a.id}')">📎 Yêu cầu bổ sung</button>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderAdminPartners() {
+  const pending = DATA.partners.filter(p => p.status === 'pending' || p.status === 'reviewing');
+  const verified = DATA.partners.filter(p => p.status === 'verified');
+  const applications = DATA.partnerApplications || [];
+  document.getElementById('mainContent').innerHTML = `
+    <div class="metrics metrics-3">
+      <div class="metric-card"><div class="metric-label">Đối tác đang hoạt động</div><div class="metric-value">${verified.length}</div><div class="metric-change metric-up">Đã xác minh trên hệ thống</div></div>
+      <div class="metric-card"><div class="metric-label">Hồ sơ chờ duyệt</div><div class="metric-value">${pending.length}</div><div class="metric-change metric-down">Cần admin xử lý</div></div>
+      <div class="metric-card"><div class="metric-label">Đăng ký làm đối tác</div><div class="metric-value">${applications.filter(a => a.status !== 'approved').length}</div><div class="metric-change metric-up">Từ màn hình onboarding đối tác</div></div>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="partnerSearch" placeholder="🔍  Tìm tên đối tác, địa chỉ..." oninput="filterAdminPartners()">
+      <select id="partnerTypeFilter" onchange="filterAdminPartners()">
+        <option value="">Tất cả loại hình</option>
+        <option value="Spa">Spa</option>
+        <option value="Thú y">Thú y</option>
+        <option value="Lưu trú">Lưu trú</option>
+        <option value="Huấn luyện">Huấn luyện</option>
+      </select>
+      <button class="btn btn-primary" onclick="showToast('Tính năng Export đang phát triển','info')">Xuất danh sách</button>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Đối tác hiện có</div><span class="badge badge-info">${DATA.partners.length} hồ sơ</span></div>
+        <div class="tabs">
+          <div class="tab active" onclick="switchPartnerTab(this,'all')">Tất cả (${DATA.partners.length})</div>
+          <div class="tab" onclick="switchPartnerTab(this,'pending')">Chờ duyệt (${pending.length})</div>
+          <div class="tab" onclick="switchPartnerTab(this,'verified')">Đã xác minh (${verified.length})</div>
+        </div>
+        <div id="partnerList">${DATA.partners.map(p => _renderPartnerCardOriginal ? _renderPartnerCardOriginal(p) : '').join('')}</div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">Đăng ký làm đối tác mới</div><button class="btn btn-sm" onclick="renderPanel('partner-apply')">Mở màn hình đăng ký</button></div>
+        <div class="stack-list">
+          ${applications.map(a => renderPartnerApplicationCard(a)).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function viewPartnerApplication(id) {
+  const a = DATA.partnerApplications.find(x => x.id === id);
+  if (!a) return;
+  openModal(`Hồ sơ đăng ký — ${a.storeName}`, `
+    <table style="width:100%;font-size:13px;margin-bottom:12px">
+      <tr><td class="text-muted" style="padding:5px 0;width:130px">Mã hồ sơ</td><td>${a.id}</td></tr>
+      <tr><td class="text-muted" style="padding:5px 0">Chủ sở hữu</td><td>${a.owner}</td></tr>
+      <tr><td class="text-muted" style="padding:5px 0">Loại hình</td><td>${a.type}</td></tr>
+      <tr><td class="text-muted" style="padding:5px 0">Khu vực</td><td>${a.city}</td></tr>
+      <tr><td class="text-muted" style="padding:5px 0">Ngày gửi</td><td>${a.submitted}</td></tr>
+      <tr><td class="text-muted" style="padding:5px 0">Ghi chú</td><td>${a.note || '—'}</td></tr>
+    </table>
+    <div class="alert alert-info">Tài liệu đã nộp: ${Array.isArray(a.documents) ? a.documents.join(', ') : '—'}</div>
+  `, null, 'Đóng');
+}
+
+function adminApproveApplication(id) {
+  const a = DATA.partnerApplications.find(x => x.id === id);
+  if (!a) return;
+  openModal('Duyệt hồ sơ đăng ký đối tác', `
+    <div class="alert alert-success">✓ Hồ sơ có thể chuyển sang trạng thái đối tác hoạt động.</div>
+    <p style="font-size:14px">Xác nhận duyệt hồ sơ của <strong>${a.storeName}</strong>?</p>
+  `, () => {
+    a.status = 'approved';
+    DATA.partners.unshift({
+      id: 'P' + String(DATA.partners.length + 1).padStart(3,'0'),
+      name: a.storeName,
+      type: a.type,
+      address: a.city,
+      phone: '0900 000 000',
+      bookings: 0,
+      rating: '—',
+      docs: '✓',
+      joined: '17/03/2026',
+      status: 'verified'
+    });
+    showToast(`Đã duyệt đăng ký của ${a.storeName}`,'success');
+    renderAdminPartners();
+  });
+}
+
+function requestMorePartnerDocs(id) {
+  const a = DATA.partnerApplications.find(x => x.id === id);
+  if (!a) return;
+  openModal('Yêu cầu bổ sung hồ sơ', `
+    <div class="form-group"><label class="form-label">Nội dung yêu cầu</label><textarea class="form-input" rows="4" placeholder="Vui lòng bổ sung giấy phép kinh doanh và bảng giá dịch vụ..."></textarea></div>
+  `, () => {
+    a.status = 'reviewing';
+    showToast(`Đã gửi yêu cầu bổ sung cho ${a.storeName}`,'info');
+    renderAdminPartners();
+  });
+}

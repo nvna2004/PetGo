@@ -142,3 +142,131 @@ DATA.operationNotifications = [
   { id:'ON003', channel:'Khách hàng', title:'Thông báo hủy lịch #BK005 gửi cho Lê Minh Cường', template:'booking_cancelled', status:'queued', time:'09:55' },
   { id:'ON004', channel:'Admin', title:'Ghi log thao tác ẩn review #R003', template:'admin_log', status:'logged', time:'09:20' },
 ];
+
+
+DATA.partnerApplications = [
+  { id:'PA001', storeName:'Mèo Mập Spa', owner:'Nguyễn Thảo My', type:'Spa', city:'Hà Nội', submitted:'16/03/2025', status:'reviewing', documents:['CCCD','Giấy phép kinh doanh','Ảnh mặt tiền'], services:4, note:'Đã bổ sung giấy phép trong buổi sáng' },
+  { id:'PA002', storeName:'PetHome Hotel', owner:'Trần Quốc Bảo', type:'Lưu trú', city:'TP.HCM', submitted:'15/03/2025', status:'pending', documents:['CCCD','Ảnh cơ sở'], services:3, note:'Chờ upload giấy kiểm dịch' },
+  { id:'PA003', storeName:'Dr.Paw Clinic', owner:'Lê Khánh Linh', type:'Thú y', city:'Đà Nẵng', submitted:'14/03/2025', status:'approved', documents:['CCCD','Chứng chỉ hành nghề','Giấy phép hoạt động'], services:5, note:'Đã tạo tài khoản đối tác' },
+];
+
+DATA.partnerRegistrationDraft = {
+  storeName:'Paw Paradise Grooming',
+  owner:'Phạm Minh Anh',
+  phone:'0912 345 678',
+  email:'hello@pawparadise.vn',
+  city:'Hà Nội',
+  district:'Cầu Giấy',
+  address:'88 Trần Thái Tông, Cầu Giấy, Hà Nội',
+  type:'Spa',
+  services:['Tắm & sấy','Cắt tỉa tạo kiểu','Spa trị liệu'],
+  openHours:'08:30 - 20:30',
+  description:'Cửa hàng chăm sóc thú cưng theo mô hình boutique, nhận booking theo slot và có khu vực chờ riêng cho khách.',
+  documents:[
+    { name:'CCCD chủ cửa hàng', status:'uploaded' },
+    { name:'Giấy phép kinh doanh', status:'uploaded' },
+    { name:'Ảnh mặt tiền cửa hàng', status:'uploaded' },
+    { name:'Bảng giá dịch vụ', status:'missing' },
+  ],
+  steps:[
+    { label:'Khai báo thông tin', done:true },
+    { label:'Tải giấy tờ', done:true },
+    { label:'Xác minh thủ công', done:false },
+    { label:'Kích hoạt tài khoản', done:false },
+  ]
+};
+
+
+// Richer partner onboarding demo data
+DATA.partnerRegistrationDraft = {
+  applicationId:'PA004',
+  status:'need_more',
+  completion:86,
+  submittedAt:'17/03/2026 09:15',
+  lastUpdated:'17/03/2026 11:40',
+  owner:'Phạm Minh Anh',
+  ownerRole:'Chủ cửa hàng',
+  ownerDob:'12/08/1994',
+  ownerId:'012345678901',
+  phone:'0912 345 678',
+  email:'hello@pawparadise.vn',
+  alternatePhone:'0988 222 666',
+  supportEmail:'ops@pawparadise.vn',
+  city:'Hà Nội',
+  district:'Cầu Giấy',
+  ward:'Dịch Vọng Hậu',
+  address:'88 Trần Thái Tông, Dịch Vọng Hậu, Cầu Giấy, Hà Nội',
+  type:'Spa',
+  businessModel:'Hộ kinh doanh cá thể',
+  taxCode:'01A8-PPG-2024',
+  legalName:'Hộ kinh doanh Paw Paradise Grooming',
+  storeName:'Paw Paradise Grooming',
+  branchCount:1,
+  openHours:'08:30 - 20:30',
+  workingDays:'Thứ 2 - Chủ nhật',
+  description:'Cửa hàng chăm sóc thú cưng theo mô hình boutique, nhận booking theo slot, có khu vực chờ riêng cho khách và quy trình check-in/check-out rõ ràng.',
+  specialties:['Grooming theo giống','Spa trị liệu da','Combo tắm - cắt - dưỡng'],
+  expectedMonthlyBookings:120,
+  staffCount:5,
+  groomingTables:3,
+  bathStations:2,
+  petHoldingArea:'Có khu lưu thú riêng và camera giám sát',
+  bankName:'Vietcombank',
+  bankAccountName:'PHAM MINH ANH',
+  bankAccountNumber:'0011002299888',
+  payoutCycle:'Đối soát T+2',
+  services:[
+    { name:'Tắm & sấy cơ bản', category:'Grooming', priceFrom:'100,000đ', duration:'45-60 phút', target:'Chó/mèo dưới 5kg' },
+    { name:'Cắt tỉa theo giống', category:'Grooming', priceFrom:'220,000đ', duration:'90 phút', target:'Poodle, Bichon, Phốc sóc' },
+    { name:'Spa trị liệu da', category:'Spa', priceFrom:'280,000đ', duration:'75 phút', target:'Thú cưng da nhạy cảm' },
+    { name:'Combo tắm + vệ sinh tai/móng', category:'Combo', priceFrom:'180,000đ', duration:'60 phút', target:'Khách đặt định kỳ' },
+  ],
+  compliance:[
+    { label:'Có khu vực đón/trả thú cưng riêng', value:true },
+    { label:'Cam kết dùng sản phẩm rõ nguồn gốc', value:true },
+    { label:'Có camera giám sát tại khu grooming', value:true },
+    { label:'Có quy trình xử lý sự cố / thú cưng kích động', value:true },
+    { label:'Đồng ý chính sách chất lượng đối tác PetGo', value:true },
+  ],
+  documents:[
+    { name:'CCCD chủ cửa hàng', status:'verified', file:'cccd_pham_minh_anh.pdf', note:'Ảnh rõ nét, trùng thông tin người đại diện' },
+    { name:'Giấy phép kinh doanh', status:'verified', file:'gpkd_paw_paradise.pdf', note:'Đã đối chiếu tên hộ kinh doanh' },
+    { name:'Ảnh mặt tiền cửa hàng', status:'verified', file:'mat_tien_store.jpg', note:'Có biển hiệu đúng tên thương hiệu' },
+    { name:'Ảnh khu vực grooming bên trong', status:'uploaded', file:'inside_grooming_room.jpg', note:'Chờ admin kiểm tra bố trí cơ sở' },
+    { name:'Bảng giá dịch vụ', status:'missing', file:'', note:'Admin yêu cầu bổ sung để đối chiếu giá niêm yết' },
+    { name:'Tài khoản ngân hàng nhận đối soát', status:'uploaded', file:'bank_confirmation.png', note:'Chờ xác minh trùng tên người nhận' },
+  ],
+  reviewFeedback:[
+    { by:'PetGo Ops', time:'17/03/2026 10:20', type:'info', message:'Hồ sơ đã qua bước kiểm tra thông tin chủ cửa hàng và địa chỉ cơ sở.' },
+    { by:'PetGo Ops', time:'17/03/2026 11:10', type:'warning', message:'Vui lòng bổ sung bảng giá dịch vụ có đóng dấu / ký xác nhận và ảnh rõ hơn khu vực tiếp nhận khách.' },
+    { by:'Chủ cửa hàng', time:'17/03/2026 11:32', type:'success', message:'Đã phản hồi yêu cầu, đang chuẩn bị tải lên bảng giá và ảnh bổ sung.' },
+  ],
+  timeline:[
+    { time:'17/03/2026 09:15', title:'Tạo hồ sơ đăng ký đối tác', detail:'Lưu nháp lần đầu với thông tin cửa hàng và người đại diện', status:'done' },
+    { time:'17/03/2026 09:42', title:'Gửi hồ sơ xét duyệt', detail:'Hồ sơ chuyển sang hàng đợi của admin', status:'done' },
+    { time:'17/03/2026 10:20', title:'Kiểm tra bước 1', detail:'Đối chiếu giấy tờ cá nhân và địa chỉ cơ sở', status:'done' },
+    { time:'17/03/2026 11:10', title:'Yêu cầu bổ sung', detail:'Bổ sung bảng giá dịch vụ và ảnh nội thất khu tiếp khách', status:'current' },
+    { time:'Dự kiến sau khi bổ sung', title:'Phê duyệt & kích hoạt', detail:'Tạo tài khoản đối tác và mở dashboard vận hành', status:'todo' },
+  ],
+  onboardingTasks:[
+    { key:'profile', label:'Xác nhận hồ sơ cửa hàng', done:true },
+    { key:'services', label:'Tạo ít nhất 3 dịch vụ đầu tiên', done:false },
+    { key:'schedule', label:'Mở lịch nhận booking 7 ngày tới', done:false },
+    { key:'payout', label:'Xác minh tài khoản nhận đối soát', done:false },
+    { key:'policy', label:'Ký xác nhận SLA & quy định vận hành', done:true },
+  ],
+  steps:[
+    { key:'draft', label:'Khai báo hồ sơ', done:true },
+    { key:'submitted', label:'Gửi xét duyệt', done:true },
+    { key:'reviewing', label:'Kiểm tra vận hành', done:true },
+    { key:'approved', label:'Phê duyệt', done:false },
+    { key:'activated', label:'Trở thành đối tác', done:false },
+  ]
+};
+
+DATA.partnerApplications = [
+  { id:'PA004', storeName:'Paw Paradise Grooming', owner:'Phạm Minh Anh', type:'Spa', city:'Hà Nội', submitted:'17/03/2026', status:'reviewing', documents:['CCCD chủ cửa hàng','Giấy phép kinh doanh','Ảnh mặt tiền cửa hàng','Ảnh khu vực grooming bên trong','Tài khoản ngân hàng nhận đối soát'], services:4, note:'Đang chờ đối tác bổ sung bảng giá dịch vụ', phone:'0912 345 678', address:'88 Trần Thái Tông, Cầu Giấy, Hà Nội' },
+  { id:'PA001', storeName:'Mèo Mập Spa', owner:'Nguyễn Thảo My', type:'Spa', city:'Hà Nội', submitted:'16/03/2025', status:'reviewing', documents:['CCCD','Giấy phép kinh doanh','Ảnh mặt tiền'], services:4, note:'Đã bổ sung giấy phép trong buổi sáng', phone:'0909 888 111', address:'15 Trần Duy Hưng, Hà Nội' },
+  { id:'PA002', storeName:'PetHome Hotel', owner:'Trần Quốc Bảo', type:'Lưu trú', city:'TP.HCM', submitted:'15/03/2025', status:'pending', documents:['CCCD','Ảnh cơ sở'], services:3, note:'Chờ upload giấy kiểm dịch', phone:'0908 777 000', address:'2 Võ Văn Tần, TP.HCM' },
+  { id:'PA003', storeName:'Dr.Paw Clinic', owner:'Lê Khánh Linh', type:'Thú y', city:'Đà Nẵng', submitted:'14/03/2025', status:'approved', documents:['CCCD','Chứng chỉ hành nghề','Giấy phép hoạt động'], services:5, note:'Đã tạo tài khoản đối tác', phone:'0905 456 123', address:'10 Hải Châu, Đà Nẵng' },
+];

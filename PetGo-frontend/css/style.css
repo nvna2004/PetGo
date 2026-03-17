@@ -543,3 +543,61 @@ textarea.form-input { resize: vertical; }
   .content, .topbar { padding-left:16px; padding-right:16px; }
   .metrics { grid-template-columns: 1fr; }
 }
+
+
+/* --- Partner onboarding flow --- */
+.stepper { display:grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap:10px; margin:16px 0; }
+.step-card {
+  background: var(--bg-secondary); border:0.5px solid var(--border-tertiary); border-radius: var(--radius-lg);
+  padding:12px; min-height:86px;
+}
+.step-card.done { background: var(--bg-success); border-color: var(--border-success); }
+.step-card.current { border-color: var(--petgo-orange); box-shadow: inset 0 0 0 1px rgba(232,98,26,.15); }
+.step-index {
+  width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  background: var(--bg-primary); color: var(--text-secondary); font-size:12px; font-weight:600; margin-bottom:10px;
+}
+.step-card.done .step-index { background: rgba(255,255,255,.85); color: #1D9E75; }
+.step-card.current .step-index { background: var(--petgo-orange-light); color: var(--petgo-orange); }
+.step-title { font-size:13px; font-weight:500; margin-bottom:4px; }
+.step-desc { font-size:12px; color: var(--text-secondary); line-height:1.5; }
+.mini-grid { display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap:10px; }
+.info-tile { background: var(--bg-secondary); border-radius: var(--radius-md); padding:12px; }
+.info-k { font-size:12px; color: var(--text-secondary); margin-bottom:4px; }
+.info-v { font-size:13px; color: var(--text-primary); font-weight:500; line-height:1.5; }
+.doc-row { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; padding:12px 0; border-bottom:0.5px solid var(--border-tertiary); }
+.doc-row:last-child { border-bottom:none; }
+.doc-meta { flex:1; }
+.doc-name { font-size:13px; font-weight:500; margin-bottom:3px; }
+.doc-sub { font-size:12px; color: var(--text-secondary); line-height:1.5; }
+.check-list { display:flex; flex-direction:column; gap:10px; }
+.check-item {
+  display:flex; align-items:flex-start; gap:10px; padding:10px 12px; background: var(--bg-secondary);
+  border:0.5px solid var(--border-tertiary); border-radius: var(--radius-md);
+}
+.check-bullet {
+  width:20px; height:20px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  background: var(--bg-primary); color: var(--text-secondary); font-size:12px; font-weight:600; margin-top:1px;
+}
+.check-item.done .check-bullet { background: var(--bg-success); color: var(--text-success); }
+.flow-board { display:grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap:12px; }
+.flow-col { background: var(--bg-secondary); border-radius: var(--radius-lg); padding:14px; }
+.flow-col-title { font-size:13px; font-weight:600; margin-bottom:10px; }
+.flow-chip { display:block; padding:10px 12px; border-radius: var(--radius-md); background: var(--bg-primary); font-size:12px; margin-bottom:8px; line-height:1.5; border:0.5px solid var(--border-tertiary); }
+.status-pill { display:inline-flex; align-items:center; gap:6px; padding:5px 10px; border-radius:20px; font-size:12px; font-weight:500; }
+.status-pill.reviewing { background: var(--bg-info); color: var(--text-info); }
+.status-pill.need_more { background: var(--bg-warning); color: var(--text-warning); }
+.status-pill.submitted { background: var(--bg-secondary); color: var(--text-secondary); }
+.status-pill.approved, .status-pill.activated { background: var(--bg-success); color: var(--text-success); }
+.status-pill.draft { background: var(--bg-secondary); color: var(--text-secondary); }
+.onboarding-banner {
+  background: linear-gradient(135deg,var(--bg-primary),var(--bg-secondary));
+  border:0.5px solid var(--border-tertiary); border-radius: var(--radius-xl); padding:18px;
+}
+.section-heading { font-size:12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: .8px; margin-bottom:10px; }
+.inline-stat { display:flex; gap:12px; flex-wrap:wrap; }
+.inline-stat .badge { padding:5px 10px; }
+@media (max-width: 1100px) {
+  .stepper, .flow-board { grid-template-columns: 1fr; }
+  .mini-grid { grid-template-columns: 1fr; }
+}

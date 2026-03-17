@@ -37,6 +37,13 @@ const NAV = {
     { id: 'partner-reports',       icon: '📈', label: 'Doanh thu' },
     { id: 'partner-subscription',  icon: '💎', label: 'Gói đăng ký' },
   ],
+
+  'partner-apply': [
+    { section: 'Bắt đầu' },
+    { id: 'partner-apply',        icon: '📝', label: 'Đăng ký làm đối tác' },
+    { section: 'Tham khảo' },
+    { id: 'partner-apply-guide',  icon: '📋', label: 'Quy trình xét duyệt' },
+  ],
 };
 
 const PANEL_TITLES = {
@@ -60,6 +67,8 @@ const PANEL_TITLES = {
   'partner-pets':        'Hồ sơ thú cưng khách hàng',
   'partner-reports':     'Doanh thu / thống kê đơn',
   'partner-subscription':'Gói đăng ký đối tác',
+  'partner-apply':       'Đăng ký làm đối tác',
+  'partner-apply-guide': 'Quy trình xét duyệt đối tác',
 };
 
 const PANEL_RENDERERS = {
@@ -83,6 +92,8 @@ const PANEL_RENDERERS = {
   'partner-pets':        renderPartnerPets,
   'partner-reports':     renderPartnerReports,
   'partner-subscription':renderPartnerSubscription,
+  'partner-apply':       renderPartnerApply,
+  'partner-apply-guide': renderPartnerApplyGuide,
 };
 
 function renderNav() {
@@ -109,8 +120,8 @@ function renderPanel(id) {
 
 function switchRole(role) {
   currentRole = role;
-  currentPanel = role === 'admin' ? 'admin-dashboard' : 'partner-dashboard';
-  document.getElementById('userAvatar').textContent = role === 'admin' ? 'AD' : 'PS';
+  currentPanel = role === 'admin' ? 'admin-dashboard' : role === 'partner' ? 'partner-dashboard' : 'partner-apply';
+  document.getElementById('userAvatar').textContent = role === 'admin' ? 'AD' : role === 'partner' ? 'PS' : 'RG';
   renderNav();
   renderPanel(currentPanel);
 }
