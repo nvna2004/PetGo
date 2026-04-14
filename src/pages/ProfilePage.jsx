@@ -17,7 +17,8 @@ import {
   Bell,
   ArrowLeft,
   Clock,
-  ExternalLink
+  ExternalLink,
+  LogIn
 } from 'lucide-react';
 
 const ProfilePage = () => {
@@ -218,6 +219,10 @@ const ProfilePage = () => {
             <button className="w-full flex items-center gap-4 p-5 rounded-[1.5rem] text-red-500 font-black hover:bg-red-50 transition-all mt-8">
               <LogOut className="w-5 h-5" />
               Đăng xuất
+            </button>
+            <button className="w-full flex items-center gap-4 p-5 rounded-[1.5rem] text-red-500 font-black hover:bg-red-50 transition-all mt-8" onClick={() => window.location.href = '/login'} >
+              <LogIn className="w-5 h-5" />
+              Đăng nhập
             </button>
           </div>
 

@@ -1,17 +1,19 @@
 
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
 import {
-  PawPrint,
-  Mail,
-  Lock,
+  ArrowRight,
   Eye,
   EyeOff,
-  ArrowRight,
-  ShieldCheck,
   Facebook,
-  Github
+  Github,
+  Lock,
+  Mail,
+  PawPrint,
+  ShieldCheck
 } from 'lucide-react';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import api from '../api/axios';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -20,6 +22,7 @@ const LoginPage = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,39 +30,16 @@ const LoginPage = () => {
     setIsLoading(true);
 
     try {
-      // For UX/UI review purposes, simulate a successful login if fields are filled
-      // In production, this would be a real fetch call
-      setTimeout(() => {
-        if (email && password) {
-          localStorage.setItem('token', 'mock-token');
-          localStorage.setItem('user', JSON.stringify({ email, name: 'User' }));
-          navigate('/');
-        } else {
-          setError('Vui lòng điền đầy đủ thông tin.');
-          setIsLoading(false);
-        }
-      }, 1500);
-
-      /* Real implementation commented out for UI review
-      const response = await fetch('http://localhost:5000/api/users/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
-      if (data.success) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        navigate('/');
-      } else {
-        setError(data.message);
-        setIsLoading(false);
-      }
-      */
-    } catch {
-  setError('Đã xảy ra lỗi. Vui lòng thử lại.');
-  setIsLoading(false);
-}
+      const response = await api.post('/auth/login', { userName: email, password });      
+      login(response.data);
+      
+      console.log('Đăng nhập thành công!');
+      navigate('/');
+    } catch (err) {
+      console.error('Lỗi đăng nhập:', err);
+      setError(err.response?.data?.message || 'Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -114,8 +94,8 @@ const LoginPage = () => {
           </div>
 
           <div className="mb-10">
-            <h2 
-              onClick={() => navigate('/')} 
+            <h2
+              onClick={() => navigate('/')}
               className="text-4xl font-black text-gray-900 mb-2 tracking-tight cursor-pointer hover:text-orange-600 transition-colors"
             >
               Sign In
