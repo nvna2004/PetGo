@@ -85,6 +85,7 @@ const App = () => {
             <a href="/" className="text-orange-600">Home</a>
             <a href="/search" className="hover:text-orange-600 transition-colors">Services</a>
             <a href="/my-bookings" className="hover:text-orange-600 transition-colors">My Bookings</a>
+            <a href="/favorites" className="hover:text-orange-600 transition-colors">favorites</a>
             <a href="/membership" className="hover:text-orange-600 transition-colors flex items-center gap-1.5">
               <Crown className="w-4 h-4 text-orange-500" /> Membership
             </a>
